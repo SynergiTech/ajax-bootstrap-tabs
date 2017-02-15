@@ -91,17 +91,21 @@
 			// If url data attribute is set on target pane
 			if($(settings.pane_wrapper + ' ' + settings.pane + '#' + id).data('url') !== undefined) {
 
-				// Add the loading div to the pane
-				$(settings.pane_wrapper + ' ' + settings.pane + '#' + id).append($('<div></div>').addClass('loading'));
+				if(!$(settings.pane_wrapper + ' ' + settings.pane + '#' + id).html().length) {
 
-				// Make an AJAX asynchronous request to the target URL
-				$.ajax({
-					url: $(settings.pane_wrapper + ' ' + settings.pane + '#' + id).data('url'),
-					async: true
-				}).done(function(data) {
-					// Change the contents of the pane to the returned HTML
-					$(settings.pane_wrapper + ' ' + settings.pane + '#' + id).html(data);
-				});
+					// Add the loading div to the pane
+					$(settings.pane_wrapper + ' ' + settings.pane + '#' + id).append($('<div></div>').addClass('loading'));
+
+					// Make an AJAX asynchronous request to the target URL
+					$.ajax({
+						url: $(settings.pane_wrapper + ' ' + settings.pane + '#' + id).data('url'),
+						async: true
+					}).done(function(data) {
+						// Change the contents of the pane to the returned HTML
+						$(settings.pane_wrapper + ' ' + settings.pane + '#' + id).html(data);
+					});
+
+				}
 
 			}
 
