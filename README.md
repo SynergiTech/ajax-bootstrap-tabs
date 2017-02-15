@@ -9,6 +9,7 @@ AJAX Bootstrap Tabs is a Bootstrap compatible tabs implementation with support f
 * History integration allows the use of back and forward buttons as well as the URL hash to change tabs on the current page
 * URL hash integration allows the tab to be set before opening the page
 * Tab change event allowing execution of functions when a tab is selected
+* Maintains position on page to avoid the 'jump' that the URL hash can cause
 
 ## Usage
 
