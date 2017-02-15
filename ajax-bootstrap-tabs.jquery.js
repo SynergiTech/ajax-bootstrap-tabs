@@ -21,6 +21,9 @@
 		// Previous history record
 		var previous_id = null;
 
+		// Default position should be page top
+		var position = $(window).scrollTop();
+
 		// Default tab
 		if(!Boolean(settings.default_tab)) {
 			var default_tab = $(settings.pane_wrapper).find(settings.pane + ':first-child').attr('id');
@@ -30,6 +33,9 @@
 
 		// Core method
 		var change = function(id, history) {
+
+			// Set position to current position to ensure position is held
+			position = $(window).scrollTop();
 
 			// If history is not set, by default it should be allowed
 			history = history || true;
@@ -126,6 +132,9 @@
 			// Trigger change event, providing current id as a variable
 			$(element).trigger('ajaxbootstraptabs.change', [id]);
 
+			// Scroll to last known good page position
+			$(window).scrollTop(position);
+
 		};
 
 		// If an id is set when the page loads
@@ -145,6 +154,8 @@
 				if(location.hash.replace(/^\#/, '') !== previous_id) {
 					// Set the current tab to the specified id, not propagating across history
 					change(location.hash, false);
+					// Scroll to last known good page position
+					$(window).scrollTop(position);
 				}
 			});
 		}
