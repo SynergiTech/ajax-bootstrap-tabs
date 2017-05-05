@@ -145,6 +145,8 @@
 			// Otherwise, use the default tab specified.
 			change(default_tab);
 		}
+		// TODO: this causes the hash to flicker in the url
+		window.location.hash = '';
 
 		// If history and pushState is enabled and available
 		if(window.history && window.history.pushState) {
