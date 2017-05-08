@@ -141,23 +141,25 @@
 		if(window.location.hash) {
 			// Set the current tab to that id
 			change(window.location.hash);
+			// TODO: this causes the hash to flicker in the url
+			window.location.hash = '';
 		} else {
 			// Otherwise, use the default tab specified.
 			change(default_tab);
 		}
-		// TODO: this causes the hash to flicker in the url
-		window.location.hash = '';
 
 		// If history and pushState is enabled and available
 		if(window.history && window.history.pushState) {
 			// On history state changed
 			$(window).on('popstate', function() {
 				// If location id is not identical to the previous
-				if(location.hash.replace(/^\#/, '') !== previous_id) {
+				if (location.hash != "" && location.hash.replace(/^\#/, '') !== previous_id) {
 					// Set the current tab to the specified id, not propagating across history
 					change(location.hash, false);
 					// Scroll to last known good page position
 					$(window).scrollTop(position);
+				} else if (location.hash == "") {
+					location.hash = '#' + previous_id;
 				}
 			});
 		}
