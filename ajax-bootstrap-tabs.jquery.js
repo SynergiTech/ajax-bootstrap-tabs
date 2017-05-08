@@ -158,8 +158,6 @@
 					change(location.hash, false);
 					// Scroll to last known good page position
 					$(window).scrollTop(position);
-				} else if (location.hash == "") {
-					location.hash = '#' + previous_id;
 				}
 			});
 		}
