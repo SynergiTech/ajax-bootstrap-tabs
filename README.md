@@ -47,6 +47,7 @@ $('#block').ajaxBootstrapTabs({
   pane: '.tab-pane',
   pane_active: 'active',
   link: '.link',
+  tab_prefix: 'tab-'
 }).bind('ajaxbootstraptabs.change', function(e, target) {
   console.log(target);
 });
