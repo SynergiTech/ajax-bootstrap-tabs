@@ -44,7 +44,9 @@
             position = $(window).scrollTop();
 
             // If history is not set, by default it should be allowed
-            history = history || true;
+            if (history === undefined) {
+                history = true;
+            }
 
             // Remove hash from before id
             id = id.replace(/^\#/, '');
