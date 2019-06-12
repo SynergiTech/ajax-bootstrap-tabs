@@ -1,4 +1,10 @@
-(function ($) {
+(function (factory) {
+    if (typeof module === "object" && typeof module.exports === "object") {
+        factory(require("jquery"));
+    } else {
+        factory(jQuery);
+    }
+}(function ($) {
     $.fn.ajaxBootstrapTabs = function (options) {
         // Default settings
         var settings = $.extend({
@@ -172,4 +178,4 @@
         // Return the element to allow chaining
         return element;
     };
-}(jQuery));
+}));
