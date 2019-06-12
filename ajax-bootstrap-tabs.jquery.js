@@ -1,6 +1,5 @@
-(function($) {
-    $.fn.ajaxBootstrapTabs = function(options) {
-
+(function ($) {
+    $.fn.ajaxBootstrapTabs = function (options) {
         // Default settings
         var settings = $.extend({
             default_tab: null, // The default tab id. Normally retrieved by getting the first tab.
@@ -26,20 +25,19 @@
         var position = $(window).scrollTop();
 
         // Default tab
-        if(!Boolean(settings.default_tab)) {
+        if (!Boolean(settings.default_tab)) {
             var default_tab = $(settings.pane_wrapper).find(settings.pane + ':first-child').attr('id');
         } else {
             var default_tab = settings.default_tab.replace(/^\#/, '');
         }
 
         // Loop through and prepend the tab prefix
-        $(settings.pane_wrapper + ' ' + settings.pane).each(function(element) {
-            $(this).attr('id', settings.tab_prefix + $(this).attr('id'))
-        })
+        $(settings.pane_wrapper + ' ' + settings.pane).each(function () {
+            $(this).attr('id', settings.tab_prefix + $(this).attr('id'));
+        });
 
         // Core method
-        var change = function(id, history) {
-
+        var change = function (id, history) {
             // Set position to current position to ensure position is held
             position = $(window).scrollTop();
 
@@ -54,13 +52,12 @@
             // Initialise the tab wrapper
             tab_wrapper = $(settings.tab_wrapper);
 
-            if(!tab_wrapper.find(settings.tab + "[href$='#" + id + "']").length || !$(settings.pane_wrapper + ' ' + settings.pane + '#' + settings.tab_prefix + id).length) {
+            if (!tab_wrapper.find(settings.tab + "[href$='#" + id + "']").length || !$(settings.pane_wrapper + ' ' + settings.pane + '#' + settings.tab_prefix + id).length) {
                 id = default_tab;
             }
 
             // If tab_inactive is not set to a class name
-            if(!Boolean(settings.tab_inactive)) {
-
+            if (!Boolean(settings.tab_inactive)) {
                 // Remove the active class from all tabs
                 tab_wrapper.find(settings.tab)
                     .removeClass(settings.tab_active.replace(/^\./, ''));
@@ -68,9 +65,7 @@
                 // Add the active class to the target tab
                 tab_wrapper.find(settings.tab + "[href$='#" + id + "']")
                     .addClass(settings.tab_active.replace(/^\./, ''));
-
             } else {
-
                 // Remove the active class from all tabs and add the inactive class
                 tab_wrapper.find(settings.tab)
                     .removeClass(settings.tab_active.replace(/^\./, ''))
@@ -80,33 +75,26 @@
                 tab_wrapper.find(settings.tab + "[href$='#" + id + "']")
                     .addClass(settings.tab_active.replace(/^\./, ''))
                     .removeClass(settings.tab_inactive.replace(/^\./, ''));
-
             }
 
             // If pane_inactive is not set to a class name
-            if(!Boolean(settings.pane_inactive)) {
-
+            if (!Boolean(settings.pane_inactive)) {
                 // Add the active class to the target pane and remove the active class from all others
                 $(settings.pane_wrapper + ' ' + settings.pane + '#' + settings.tab_prefix + id).addClass(settings.pane_active.replace(/^\./, ''))
                     .siblings(settings.pane)
                     .removeClass(settings.pane_active.replace(/^\./, ''));
-
             } else {
-
                 // Remove the inactive class from the target pane and add the active class. Inverse this for all others.
                 $(settings.pane_wrapper + ' ' + settings.pane + '#' + settings.tab_prefix + id).removeClass(settings.pane_inactive.replace(/^\./, ''))
                     .addClass(settings.pane_active.replace(/^\./, ''))
                     .siblings(settings.pane)
                     .removeClass(settings.pane_active.replace(/^\./, ''))
                     .addClass(settings.pane_inactive.replace(/^\./, ''));
-
             }
 
             // If url data attribute is set on target pane
-            if($(settings.pane_wrapper + ' ' + settings.pane + '#' + settings.tab_prefix + id).data('url') !== undefined) {
-
-                if(!$(settings.pane_wrapper + ' ' + settings.pane + '#' + settings.tab_prefix + id).html().length) {
-
+            if ($(settings.pane_wrapper + ' ' + settings.pane + '#' + settings.tab_prefix + id).data('url') !== undefined) {
+                if (!$(settings.pane_wrapper + ' ' + settings.pane + '#' + settings.tab_prefix + id).html().length) {
                     // Add the loading div to the pane
                     $(settings.pane_wrapper + ' ' + settings.pane + '#' + settings.tab_prefix + id).append($('<div></div>').addClass('loading'));
 
@@ -114,21 +102,19 @@
                     $.ajax({
                         url: $(settings.pane_wrapper + ' ' + settings.pane + '#' + settings.tab_prefix + id).data('url'),
                         async: true
-                    }).done(function(data) {
+                    }).done(function (data) {
                         // Change the contents of the pane to the returned HTML
                         $(settings.pane_wrapper + ' ' + settings.pane + '#' + settings.tab_prefix + id).html(data);
                     });
-
                 }
-
             }
 
             // If history is set to true
-            if(Boolean(history)) {
+            if (Boolean(history)) {
                 // Set the previous id to avoid duplicate event triggers
                 previous_id = id;
                 // If history pushState is enabled
-                if(history.pushState) {
+                if (history.pushState) {
                     // Push the current id to the history to enable navigation
                     history.pushState('#' + id, null, '#' + id);
                 } else {
@@ -142,11 +128,10 @@
 
             // Scroll to last known good page position
             $(window).scrollTop(position);
-
         };
 
         // If an id is set when the page loads
-        if(window.location.hash) {
+        if (window.location.hash) {
             // Set the current tab to that id
             change(window.location.hash);
         } else {
@@ -155,11 +140,11 @@
         }
 
         // If history and pushState is enabled and available
-        if(window.history && window.history.pushState) {
+        if (window.history && window.history.pushState) {
             // On history state changed
-            $(window).on('popstate', function() {
+            $(window).on('popstate', function () {
                 // If location id is not identical to the previous
-                if(location.hash.replace(/^\#/, '') !== previous_id) {
+                if (location.hash.replace(/^\#/, '') !== previous_id) {
                     // Set the current tab to the specified id, not propagating across history
                     change(location.hash, false);
                     // Scroll to last known good page position
@@ -169,7 +154,7 @@
         }
 
         // On click of tab
-        $(element).on('click', settings.tab_wrapper + ' ' + settings.tab, function(event) {
+        $(element).on('click', settings.tab_wrapper + ' ' + settings.tab, function (event) {
             // Prevent event propagation
             event.preventDefault();
             // Switch to the targeted tab
@@ -177,15 +162,14 @@
         });
 
         // On click of link
-        $(element).on('click', settings.link, function(event) {
+        $(element).on('click', settings.link, function (event) {
             // Prevent event propagation
             event.preventDefault();
             // Switch to the targeted tab
             change($(this).attr('href'));
         });
 
-        // Return the element to allow event binding
+        // Return the element to allow chaining
         return element;
-
     };
 }(jQuery));
