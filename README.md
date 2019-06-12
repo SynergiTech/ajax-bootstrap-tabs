@@ -3,6 +3,8 @@ AJAX Bootstrap Tabs is a Bootstrap compatible tabs implementation with support f
 
 It is an alternative to Bootstrap tabs with extra functionality and the ability to apply custom classes to each tab for your own custom design.
 
+If you're only interested in the history functionality, have a look at the historytabs.jquery.js file.
+
 ## Features
 
 * Clean, lean and simple tabs that are easily made compatible with most CSS frameworks
