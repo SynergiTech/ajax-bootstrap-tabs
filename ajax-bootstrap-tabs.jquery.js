@@ -57,7 +57,7 @@
             id = id.replace(/^\#/, '');
 
             // Initialise the tab wrapper
-            tab_wrapper = $(settings.tab_wrapper);
+            var tab_wrapper = $(settings.tab_wrapper);
 
             if (!tab_wrapper.find(settings.tab + "[href$='#" + id + "']").length || !$(settings.pane_wrapper + ' ' + settings.pane + '#' + settings.tab_prefix + id).length) {
                 id = default_tab;
