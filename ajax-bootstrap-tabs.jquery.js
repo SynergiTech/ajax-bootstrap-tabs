@@ -31,10 +31,11 @@
         var position = $(window).scrollTop();
 
         // Default tab
-        if (!Boolean(settings.default_tab)) {
-            var default_tab = $(settings.pane_wrapper).find(settings.pane + ':first-child').attr('id');
-        } else {
-            var default_tab = settings.default_tab.replace(/^\#/, '');
+        // - used to be first-child but its not always the first-child so use jQuery to get the real first tab
+        var default_tab = (settings.default_tab === null) ? $(settings.pane_wrapper).find(settings.pane).first().attr('id') : settings.default_tab.replace(/^\#/, '');
+
+        if (default_tab === undefined || default_tab === null) {
+            $.error('Unable to set a default tab in ajax bootstrap tabs');
         }
 
         // Loop through and prepend the tab prefix
